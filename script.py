@@ -9,26 +9,13 @@ headers = {
 }
 response = requests.post('https://apiv2.shiprocket.in/v1/external/auth/login', headers=headers, json=json_data)
 #print(response.json())
-
 auth_res_dict = response.json()
-
 token = auth_res_dict["token"]
 
 
-ship_id_list = ['241417795', '241417794']
+ship_id_list = ['241420301', '241420299']
+
+# Editing PDF
+label_url = "https://kr-shipmultichannel.s3.ap-southeast-1.amazonaws.com/1387189/labels/1659203322_shipping-label-241420301-89593757153.pdf"
 
 
-## Schedule Pickup
-url = "https://apiv2.shiprocket.in/v1/external/courier/generate/pickup"
-headers = {
-  'Content-Type': 'application/json',
-  'Authorization': f'Bearer {token}'
-}
-
-for i in ship_id_list:
-    list_ship_indiv_id = [i]
-    payload = json.dumps({
-      "shipment_id": list_ship_indiv_id
-    })
-    response = requests.request("POST", url, headers=headers, data=payload)
-    print(response.text)

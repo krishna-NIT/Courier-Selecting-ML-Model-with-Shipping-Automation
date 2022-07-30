@@ -15,7 +15,7 @@ auth_res_dict = response.json()
 token = auth_res_dict["token"]
 
 
-
+## Fetching Order Details
 
 
 url = "https://apiv2.shiprocket.in/v1/external/orders"
@@ -71,7 +71,7 @@ while i < len(ship_id_list):
     })
 
     response = requests.request("POST", url, headers=headers, data=payload)
-    print(response.text)
+    #print(response.text)
     res = response.json()
     awb_status = res.get("awb_assign_status")
     if awb_status == 1:
@@ -120,6 +120,24 @@ headers = {
   'Content-Type': 'application/json',
   'Authorization': f'Bearer {token}'
 }
+for i in ship_id_list:
+    list_ship_indiv_id = [i]
+    payload = json.dumps({
+      "shipment_id": list_ship_indiv_id
+    })
+    response = requests.request("POST", url, headers=headers, data=payload)
+    print(response.text)
+
+
+
+
+## Generate Label
+url = "https://apiv2.shiprocket.in/v1/external/courier/generate/label"
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': f'Bearer {token}'
+}
+lable_url_list = []
 
 for i in ship_id_list:
     list_ship_indiv_id = [i]
@@ -127,8 +145,14 @@ for i in ship_id_list:
       "shipment_id": list_ship_indiv_id
     })
     response = requests.request("POST", url, headers=headers, data=payload)
-    #print(response.text)
+    print(response.text)
+    respo = response.json()
+    if respo.get("label_created") == 1:
+        lab_url = respo.get("label_url")
+        lable_url_list.append(lab_url)
 
+print("All Label Links Below")
+print(lable_url_list)
 
 
 
