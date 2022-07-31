@@ -301,7 +301,7 @@ def send_whatsapp_msg(order_count):
     now = datetime.now()
     # dd/mm/YY H:M:S
     dt_string = now.strftime("%d/%m/%Y %H:%M")
-    print("date and time =", dt_string)
+    #print("date and time =", dt_string)
 
     # client credentials are read from TWILIO_ACCOUNT_SID and AUTH_TOKEN
     # client = Client()
@@ -314,6 +314,7 @@ def send_whatsapp_msg(order_count):
     client.messages.create(body=str(order_count)+' order at ' + dt_string,
                            from_=from_whatsapp_number,
                            to=to_whatsapp_number)
+    print(str(order_count)+' order at ' + dt_string)
 
 send_whatsapp_msg(len(ship_id_list))
 
