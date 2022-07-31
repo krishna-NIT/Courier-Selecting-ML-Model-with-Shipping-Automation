@@ -311,15 +311,21 @@ def send_whatsapp_msg(order_count):
     # replace this number with your own WhatsApp Messaging number
     to_whatsapp_number = 'whatsapp:+918742881915'
 
+    print(str(order_count) + ' order at ' + dt_string)
+
     client.messages.create(body=str(order_count)+' order at ' + dt_string,
                            from_=from_whatsapp_number,
                            to=to_whatsapp_number)
-    print(str(order_count)+' order at ' + dt_string)
+
 
 send_whatsapp_msg(len(ship_id_list))
 
 
 ## Send PDF as Attachment via Email
+
+
+
+
 
 
 
