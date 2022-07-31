@@ -1,0 +1,10 @@
+README.md
+setup.cfg
+setup.py
+pdf_mail/__init__.py
+pdf_mail/python.py
+pdf_mail.egg-info/PKG-INFO
+pdf_mail.egg-info/SOURCES.txt
+pdf_mail.egg-info/dependency_links.txt
+pdf_mail.egg-info/not-zip-safe
+pdf_mail.egg-info/top_level.txt
