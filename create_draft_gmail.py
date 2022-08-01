@@ -17,19 +17,8 @@ def gmail_create_draft():
       TODO(developer) - See https://developers.google.com/identity
       for guides on implementing OAuth2 for the application.
     """
-    import os
-    from google.oauth2 import service_account
-    from google.cloud import language_v1
-    import json
-    credentials = service_account.Credentials.from_service_account_file("service_account _key.json")
-    client = language_v1.LanguageServiceClient(credentials=credentials)
-
-    client = language_v1.LanguageServiceClient.from_service_account_json("service_account _key.json")
     creds, _ = google.auth.default()
 
-    google.auth.load_credentials_from_file("service_account _key.json", scopes=None, default_scopes=None, quota_project_id=None, request=None)
-
-    delegated_credentials = credentials.with_subject('iiitprep.store@gmail.com')
     try:
         # create gmail api client
         service = build('gmail', 'v1', credentials=creds)
@@ -38,8 +27,8 @@ def gmail_create_draft():
 
         message.set_content('This is automated draft mail')
 
-        message['To'] = 'iiitprep.store@gmail.com'
-        message['From'] = 'iiitprep.store@gmail.com'
+        message['To'] = 'gduser1@workspacesamples.dev'
+        message['From'] = 'gduser2@workspacesamples.dev'
         message['Subject'] = 'Automated draft'
 
         # encoded message
@@ -59,8 +48,6 @@ def gmail_create_draft():
         draft = None
 
     return draft
-
-
 
 
 if __name__ == '__main__':

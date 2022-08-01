@@ -3,48 +3,100 @@ import json
 import os
 import time
 import datetime
+from Google import Create_Service
+import os
+import base64
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
+import mimetypes
 
 json_data = {
     'email': 'iiitprep.dispatch@gmail.com',
     'password': 'Vishnu@123',
 }
 headers = {
-  'Content-Type': 'application/json'
+    'Content-Type': 'application/json'
 }
 response = requests.post('https://apiv2.shiprocket.in/v1/external/auth/login', headers=headers, json=json_data)
-#print(response.json())
+# print(response.json())
 
 auth_res_dict = response.json()
 
 token = auth_res_dict["token"]
 
 
-## Fetching Order Details
+# Sending Mail with Attachments
 
+def send_mail_with_attahment(final_url_after_address_removal):
+    CLIENT_SECRET_FILE = 'desktop_credentials.json'
+    API_NAME = 'gmail'
+    API_VERSION = 'v1'
+    SCOPES = ['https://mail.google.com/']
+
+    service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+
+    file_attachments = ['label_after_add_removal.pdf']
+
+    emailMsg = '1 Order with Label Link: ' +final_url_after_address_removal
+
+    # create email message
+    mimeMessage = MIMEMultipart()
+    mimeMessage['to'] = 'iiitprep.dispatch@gmail.com'
+    mimeMessage['subject'] = '1 New order Printout'
+    mimeMessage.attach(MIMEText(emailMsg, 'plain'))
+
+    # Attach files
+    for attachment in file_attachments:
+        content_type, encoding = mimetypes.guess_type(attachment)
+        main_type, sub_type = content_type.split('/', 1)
+        file_name = os.path.basename(attachment)
+
+        f = open(attachment, 'rb')
+
+        myFile = MIMEBase(main_type, sub_type)
+        myFile.set_payload(f.read())
+        myFile.add_header('Content-Disposition', 'attachment', filename=file_name)
+        encoders.encode_base64(myFile)
+
+        f.close()
+
+        mimeMessage.attach(myFile)
+
+    raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()
+
+    message = service.users().messages().send(
+        userId='me',
+        body={'raw': raw_string}).execute()
+
+    print(message)
+
+
+## Fetching Order Details
 
 url = "https://apiv2.shiprocket.in/v1/external/orders"
 
-payload={}
+payload = {}
 headers = {
-  'Content-Type': 'application/json',
-  'Authorization': f'Bearer {token}'
+    'Content-Type': 'application/json',
+    'Authorization': f'Bearer {token}'
 }
 
 response = requests.request("GET", url, headers=headers, data=payload)
 all_order = response.json()
 
-
 print(type(all_order.get('data')))
-#print(all_order.get("data")[1].get("status"))
-#print(all_order.get("data")[1].get("shipments")[0].get("id"))
+# print(all_order.get("data")[1].get("status"))
+# print(all_order.get("data")[1].get("shipments")[0].get("id"))
 ls = all_order.get("data")
-#print(len(ls))
+# print(len(ls))
 ship_id_list = []
 i = 0;
 while i < len(ls):
     stat = all_order.get("data")[i].get("status")
     ship_id = all_order.get("data")[i].get("shipments")[0].get("id")
-    if(stat == "NEW"):
+    if (stat == "NEW"):
         ship_id_list.append(ship_id)
     i += 1
 
@@ -52,30 +104,29 @@ print(len(ship_id_list))
 print("Krishna Shippig ID list")
 print(ship_id_list)
 
-
 # Generate AWB for Shipment
 url = "https://apiv2.shiprocket.in/v1/external/courier/assign/awb"
 
 headers = {
-  'Content-Type': 'application/json',
-  'Authorization': f'Bearer {token}'
+    'Content-Type': 'application/json',
+    'Authorization': f'Bearer {token}'
 }
 
-courier_id = "1" ## for Bluedart
-courier_id2 = "10" ## for Delhivery
-courier_id3 = "48" ## for Ekart
+courier_id = "1"  ## for Bluedart
+courier_id2 = "10"  ## for Delhivery
+courier_id3 = "48"  ## for Ekart
 
 awb_generated = []
 failed_shipping_id = []
 i = 0
 while i < len(ship_id_list):
     payload = json.dumps({
-      "shipment_id": ship_id_list[i],
-      "courier_id": "1"
+        "shipment_id": ship_id_list[i],
+        "courier_id": "1"
     })
 
     response = requests.request("POST", url, headers=headers, data=payload)
-    #print(response.text)
+    # print(response.text)
     res = response.json()
     awb_status = res.get("awb_assign_status")
     if awb_status == 1:
@@ -88,7 +139,7 @@ while i < len(ship_id_list):
             "courier_id": "10"
         })
         response = requests.request("POST", url, headers=headers, data=payload)
-        #print(response.text)
+        # print(response.text)
         res = response.json()
         awb_status = res.get("awb_assign_status")
         if awb_status == 1:
@@ -102,7 +153,7 @@ while i < len(ship_id_list):
             })
 
             response = requests.request("POST", url, headers=headers, data=payload)
-            #print(response.text)
+            # print(response.text)
             res = response.json()
             awb_status = res.get("awb_assign_status")
             if awb_status == 1:
@@ -112,41 +163,37 @@ while i < len(ship_id_list):
             else:
                 failed_shipping_id.append(ship_id)
 
-    i+=1
+    i += 1
 
 print("All Generated AWB")
 print(awb_generated)
 
-
 ## Schedule Pickup
 url = "https://apiv2.shiprocket.in/v1/external/courier/generate/pickup"
 headers = {
-  'Content-Type': 'application/json',
-  'Authorization': f'Bearer {token}'
+    'Content-Type': 'application/json',
+    'Authorization': f'Bearer {token}'
 }
 for i in ship_id_list:
     list_ship_indiv_id = [i]
     payload = json.dumps({
-      "shipment_id": list_ship_indiv_id
+        "shipment_id": list_ship_indiv_id
     })
     response = requests.request("POST", url, headers=headers, data=payload)
     print(response.text)
 
-
-
-
 ## Generate Label
 url = "https://apiv2.shiprocket.in/v1/external/courier/generate/label"
 headers = {
-  'Content-Type': 'application/json',
-  'Authorization': f'Bearer {token}'
+    'Content-Type': 'application/json',
+    'Authorization': f'Bearer {token}'
 }
 lable_url_list = []
 
 for i in ship_id_list:
     list_ship_indiv_id = [i]
     payload = json.dumps({
-      "shipment_id": list_ship_indiv_id
+        "shipment_id": list_ship_indiv_id
     })
     response = requests.request("POST", url, headers=headers, data=payload)
     print(response.text)
@@ -158,10 +205,6 @@ for i in ship_id_list:
 print("All Label Links Below")
 print(lable_url_list)
 
-
-
-
-
 ## Remove Address from PDF
 
 # The authentication key (API Key).
@@ -172,16 +215,17 @@ API_KEY = "iiitprep@gmail.com_2ba9dc5a8c77eff8e5115e096f1eb41b9c03c32197dac0573a
 BASE_URL = "https://api.pdf.co/v1"
 
 # Direct URL of source PDF file.
-#SourceFileURL = label_pdf_url
+# SourceFileURL = label_pdf_url
 # PDF document password. Leave empty for unprotected documents.
 Password = ""
 # Destination PDF file name
-DestinationFile = ".\\result.pdf"
+DestinationFile = ".\\label_after_add_removal.pdf"
 # (!) Make asynchronous job
 Async = True
 
+
 def del_txt(SourceFileURL):
-    #global SourceFileURL
+    # global SourceFileURL
     del_string = ["A-12, Lane no 4, Dnyaneshwar N",
                   "agar Dabki Road, Old City, AKo",
                   "la",
@@ -198,7 +242,7 @@ def del_txt(SourceFileURL):
 
     final_pdf_url = SourceFileURL
     return final_pdf_url
-    #print(SourceFileURL)
+    # print(SourceFileURL)
 
 
 def deleteTextFromPdf(uploadedFileUrl, destinationFile, del_string):
@@ -261,6 +305,7 @@ def deleteTextFromPdf(uploadedFileUrl, destinationFile, del_string):
         print(f"Request error: {response.status_code} {response.reason}")
     return result_url_our
 
+
 def checkJobStatus(jobId):
     """Checks server job status"""
 
@@ -277,15 +322,14 @@ def checkJobStatus(jobId):
 
 
 url_after_add_removal = []
-
 for label_url_p in lable_url_list:
     f_url_pdf = del_txt(label_url_p)
     url_after_add_removal.append(f_url_pdf)
+    send_mail_with_attahment("label_after_add_removal.pdf")
 
 print("Final PDF Links")
 print(len(url_after_add_removal))
-#print(url_after_add_removal)
-
+print(url_after_add_removal)
 
 
 ## Send WhatsApp Order Notification
@@ -301,7 +345,7 @@ def send_whatsapp_msg(order_count):
     now = datetime.now()
     # dd/mm/YY H:M:S
     dt_string = now.strftime("%d/%m/%Y %H:%M")
-    #print("date and time =", dt_string)
+    # print("date and time =", dt_string)
 
     # client credentials are read from TWILIO_ACCOUNT_SID and AUTH_TOKEN
     # client = Client()
@@ -313,20 +357,11 @@ def send_whatsapp_msg(order_count):
 
     print(str(order_count) + ' order at ' + dt_string)
 
-    client.messages.create(body=str(order_count)+' order at ' + dt_string,
+    client.messages.create(body=str(order_count) + ' order at ' + dt_string,
                            from_=from_whatsapp_number,
                            to=to_whatsapp_number)
 
 
 send_whatsapp_msg(len(ship_id_list))
 
-
 ## Send PDF as Attachment via Email
-
-
-
-
-
-
-
-
