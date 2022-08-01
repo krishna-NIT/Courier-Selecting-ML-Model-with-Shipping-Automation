@@ -1,0 +1,10 @@
+setup.cfg
+setup.py
+language/__init__.py
+language/chars.py
+language/ngrams.py
+language/tokens.py
+language.egg-info/PKG-INFO
+language.egg-info/SOURCES.txt
+language.egg-info/dependency_links.txt
+language.egg-info/top_level.txt
