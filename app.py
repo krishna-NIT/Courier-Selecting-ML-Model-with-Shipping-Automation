@@ -29,7 +29,7 @@ token = auth_res_dict["token"]
 
 # Sending Mail with Attachments
 
-def send_mail_with_attahment(final_url_after_address_removal):
+def send_mail_with_attahment():
     CLIENT_SECRET_FILE = 'desktop_credentials.json'
     API_NAME = 'gmail'
     API_VERSION = 'v1'
@@ -39,7 +39,7 @@ def send_mail_with_attahment(final_url_after_address_removal):
 
     file_attachments = ['label_after_add_removal.pdf']
 
-    emailMsg = '1 Order with Label Link: ' +final_url_after_address_removal
+    emailMsg = '1 Order with Label attached'
 
     # create email message
     mimeMessage = MIMEMultipart()
@@ -325,7 +325,7 @@ url_after_add_removal = []
 for label_url_p in lable_url_list:
     f_url_pdf = del_txt(label_url_p)
     url_after_add_removal.append(f_url_pdf)
-    send_mail_with_attahment("label_after_add_removal.pdf")
+    send_mail_with_attahment()
 
 print("Final PDF Links")
 print(len(url_after_add_removal))
