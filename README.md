@@ -57,15 +57,23 @@ Work under progress
 <br>
 
 ## How to Use ?
-* Generate All your API Keys and Credentials from API Links provided below
-* Change Localhost Port (If running locally)
+* Generate All your `API Keys` and `Credentials` from API Links provided below
+* Change `Localhost Port` (If running locally) eg, 4080
 * Replace the credentials within `app.py` file
+* Do required changes as mentioned above for AWS
 * Run 🚀🚀 and Save your Time
 
 ## TechStack Used
 
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)
+![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 
-### Authentication Links:
+### API Docs :
 * G-Cloud oAuth 2.0 : https://developers.google.com/gmail/api/quickstart/python
 * Shiprocket API : https://apidocs.shiprocket.in/#8a56b4d6-b418-43cf-be25-ead62532aa18
 * PDF.co API : https://apidocs.pdf.co/#pdfco-api-v100
