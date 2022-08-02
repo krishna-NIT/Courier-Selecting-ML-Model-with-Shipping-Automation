@@ -1,8 +1,8 @@
 # Courier selecting ML Model with Shipping Automation
 
 ## Aim :
+* Build ML Model for Selecting Courier Partner which should lead to better customer satisfaction along with Automating complete shipping process right from generating AWB no then, Editing Label as per the client's requirement and Finally sending PDF Label as an attachment via email to Printing Executive along with a WhatsApp notification to Packing Representative.
 * On Razorpay webhook Trigger, we want AWS lambda + AWS CloudWatch to Schedules execution of script after 30 min
-* Build Robust ML Model for Selecting Courier Partner
 
 ## Client's Problem Statement:
 1. Selecting courier partner is manual, we have to automate that with high performance courier partner ML Model build on previous data.
