@@ -335,7 +335,7 @@ def send_whatsapp_msg(order_count):
     # client = Client()
     client = Client(TWILIO_ACOUNT_SID, TWILIO_AUTH_TOKEN)
     # this is the Twilio sandbox testing number
-    from_whatsapp_number = 'whatsapp:+14155238886'
+    from_whatsapp_number = 'whatsapp:<Your Twilio Number along with + sign>'
     # replace this number with your own WhatsApp Messaging number
     to_whatsapp_number = 'whatsapp:+91<10 digit no where you want to send notification>'
 
