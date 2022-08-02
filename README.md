@@ -16,10 +16,15 @@
 2. Use of PDF.CO API for Editing PDF Label as per the requirement.
 3. By using Google Cloud Gmail API via oAuth 2.0
 4. By using Twilio API using Sandbox 2.0
-5. Hosted complete project on AWS then after webhook request from Razorpay, Script is scheduled to run after 30 min by using AWS Lambda and AWS CloudWatch
+5. Hosted complete project on AWS then after webhook request from Razorpay, Script is scheduled to run after 30 min by using AWS Lambda and AWS CloudWatch.
 ![sample 3](https://user-images.githubusercontent.com/73196470/182379841-85700feb-09be-41e9-81cd-727d20d8cae5.png)
 
-## AWS Automation
+## Automation using AWS S3, Lambda, EventBridge build on CloudWatch 
+<br/>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/donnemartin/data-science-ipython-notebooks/master/images/aws.png" size=20px>
+</p>
+<br/>
 
 - Selecting Best courier partner as per the previous performance of the courier partner.
 - Shipping Automation
@@ -33,13 +38,26 @@
       - Sending Gmail to Printing Team with Label PDF attachment
       - Sending WhatsApp Notification to Packing Team
 
-### Authentication Types:
-* G-Cloud oAuth 2.0 :
-* Shiprocket API 
-* PDF.co API
-* Webhook?
-* Twilio API
+# Courier Selecting ML Model
+<br>
+<br>
+Work under progress
+<br>
+<br>
+<br>
+<br>
 
-<strong> PS: This Automation will save a salary of 1 person
+## How to Use ?
+* Generate All your API Keys and Credentials from API Links provided below
+* Replace the credentials within app.py file
+* Run 🚀🚀 and Save your Time
+
+### Authentication Types:
+* G-Cloud oAuth 2.0 : https://developers.google.com/gmail/api/quickstart/python
+* Shiprocket API : https://apidocs.shiprocket.in/#8a56b4d6-b418-43cf-be25-ead62532aa18
+* PDF.co API : https://apidocs.pdf.co/#pdfco-api-v100
+* Twilio API : https://www.twilio.com/docs/conversations/quickstart
+
+<strong> PS: This Automation will save a salary of 1 person 🚀
 Approx . (20k/month) 🥳<br>
 🥂 Party toh banti hai, boss! 🥂 </strong>
