@@ -180,7 +180,7 @@ def deleteTextFromPdf(uploadedFileUrl, destinationFile, del_string):
     """Delete Text from PDF using PDF.co Web API"""
     # The authentication key (API Key).
     # Get your own by registering at https://app.pdf.co
-    API_KEY = "iiitprep@gmail.com_2ba9dc5a8c77eff8e5115e096f1eb41b9c03c32197dac0573acd957a5b6acc687d440bdd"
+    API_KEY = "Your API Key"
 
     # Base URL for PDF.co Web API requests
     BASE_URL = "https://api.pdf.co/v1"
@@ -319,8 +319,8 @@ def send_mail_with_attahment(output_file_name, to_email):
 ## Send WhatsApp Order Notification
 def send_whatsapp_msg(order_count):
     from datetime import date
-    TWILIO_ACOUNT_SID = 'ACd963c39bbfa6be628fe2333199df3af6'
-    TWILIO_AUTH_TOKEN = '5f44fb1df80a74c027dd76252d77080e'
+    TWILIO_ACOUNT_SID = 'Your Twilio SID'
+    TWILIO_AUTH_TOKEN = 'Your Twilio Auth Token'
 
     from twilio.rest import Client
 
@@ -337,7 +337,7 @@ def send_whatsapp_msg(order_count):
     # this is the Twilio sandbox testing number
     from_whatsapp_number = 'whatsapp:+14155238886'
     # replace this number with your own WhatsApp Messaging number
-    to_whatsapp_number = 'whatsapp:+918208656844'
+    to_whatsapp_number = 'whatsapp:+91<10 digit no where you want to send notification>'
 
     print(str(order_count) + ' order at ' + dt_string)
 
@@ -350,9 +350,9 @@ def send_whatsapp_msg(order_count):
 
 ## Main
 def main():
-    ship_api_email = 'iiitprep.dispatch@gmail.com'
-    ship_api_password = 'Vishnu@123' \
-                        ''
+    ship_api_email = 'Your Shiprocket API User Email'
+    ship_api_password = 'API User Password'
+         
     token = connect_shiprocet(ship_api_email, ship_api_password)
 
     ship_id_list = fetch_order_details_shiprocket(token)
@@ -368,8 +368,6 @@ def main():
                   "Akola",
                   "444002",
                   "GSTIN:",
-                  "Phone No.: 8742881915",
-                  "Alternate No.: - 8208656844",
                   "Ako"
                   ]
     url_after_add_removal = []
