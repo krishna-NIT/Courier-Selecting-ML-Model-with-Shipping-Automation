@@ -49,8 +49,10 @@ Work under progress
 
 ## How to Use ?
 * Generate All your API Keys and Credentials from API Links provided below
-* Replace the credentials within app.py file
+* Replace the credentials within 'app.py' file
 * Run 🚀🚀 and Save your Time
+
+'asd'
 
 ### Authentication Types:
 * G-Cloud oAuth 2.0 : https://developers.google.com/gmail/api/quickstart/python
