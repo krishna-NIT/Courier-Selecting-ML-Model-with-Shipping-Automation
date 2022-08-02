@@ -37,6 +37,15 @@
   * Download final label
       - Sending Gmail to Printing Team with Label PDF attachment
       - Sending WhatsApp Notification to Packing Team
+## Things to take care of while Hosting Automation on AWS
+* Use AWS S3 to upload `.zip` file of code to AWS Lambda because after all packages size > 30 MB
+* replace `main()` to `def lambda_handler(event, context):`
+* rename `app.py` to `lambda_function.py`
+* Don't forget to include `Google.py` (It's has oAuth 2.0 Script)
+* Use `pip install package-name -t directory_name` to install all required library
+* In Lambda function, change `timeout` configuration from by default 3 sec to 15 min (else script will stop working in between)
+* In AWS EventBridge, set `cron()` function as per requirement so, Refer: [cron() function](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchevents-expressions.html)
+
 
 # Courier Selecting ML Model
 <br>
@@ -49,12 +58,14 @@ Work under progress
 
 ## How to Use ?
 * Generate All your API Keys and Credentials from API Links provided below
-* Replace the credentials within 'app.py' file
+* Change Localhost Port (If running locally)
+* Replace the credentials within `app.py` file
 * Run 🚀🚀 and Save your Time
 
-'asd'
+## TechStack Used
 
-### Authentication Types:
+
+### Authentication Links:
 * G-Cloud oAuth 2.0 : https://developers.google.com/gmail/api/quickstart/python
 * Shiprocket API : https://apidocs.shiprocket.in/#8a56b4d6-b418-43cf-be25-ead62532aa18
 * PDF.co API : https://apidocs.pdf.co/#pdfco-api-v100
