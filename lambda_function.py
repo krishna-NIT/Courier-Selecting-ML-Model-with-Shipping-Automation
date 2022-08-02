@@ -18,8 +18,8 @@ from script import CLIENT_SECRET_FILE
 
 def lambda_handler(event, context, json=None):
     json_data = {
-        'email': 'iiitprep.dispatch@gmail.com',
-        'password': 'Vishnu@123',
+        'email': 'Your Shiprocket API User Email',
+        'password': 'Shiprocket API User Password',
     }
     headers = {
         'Content-Type': 'application/json'
@@ -170,7 +170,7 @@ def lambda_handler(event, context, json=None):
 
     # The authentication key (API Key).
     # Get your own by registering at https://app.pdf.co
-    API_KEY = "iiitprep@gmail.com_2ba9dc5a8c77eff8e5115e096f1eb41b9c03c32197dac0573acd957a5b6acc687d440bdd"
+    API_KEY = "API Key"
 
     # Base URL for PDF.co Web API requests
     BASE_URL = "https://api.pdf.co/v1"
@@ -203,8 +203,6 @@ def del_txt(SourceFileURL):
                   "Akola",
                   "444002",
                   "GSTIN:",
-                  "Phone No.: 8742881915",
-                  "Alternate No.: - 8208656844",
                   "Ako"
                   ]
     for i in del_string:
@@ -232,8 +230,8 @@ def checkJobStatus(jobId):
 
     ## Send WhatsApp Order Notification
 def send_whatsapp_msg(order_count, ship_id_list):
-    TWILIO_ACOUNT_SID = 'ACd963c39bbfa6be628fe2333199df3af6'
-    TWILIO_AUTH_TOKEN = '5f44fb1df80a74c027dd76252d77080e'
+    TWILIO_ACOUNT_SID = 'Your Twilio SID'
+    TWILIO_AUTH_TOKEN = 'Your API Key'
 
     from twilio.rest import Client
 
@@ -248,9 +246,9 @@ def send_whatsapp_msg(order_count, ship_id_list):
     # client = Client()
     client = Client(TWILIO_ACOUNT_SID, TWILIO_AUTH_TOKEN)
     # this is the Twilio sandbox testing number
-    from_whatsapp_number = 'whatsapp:+14155238886'
+    from_whatsapp_number = 'whatsapp:<Your Twilio Numeber>'
     # replace this number with your own WhatsApp Messaging number
-    to_whatsapp_number = 'whatsapp:+918208656844'
+    to_whatsapp_number = 'whatsapp:+91<10 digit number where you want to send Notification>'
 
     print(str(order_count) + ' order at ' + dt_string)
 
