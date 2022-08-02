@@ -5,7 +5,7 @@ import datetime
 
 # The authentication key (API Key).
 # Get your own by registering at https://app.pdf.co
-API_KEY = "iiitprep@gmail.com_2ba9dc5a8c77eff8e5115e096f1eb41b9c03c32197dac0573acd957a5b6acc687d440bdd"
+API_KEY = "Your API Key"
 label_pdf_url = "https://kr-shipmultichannel.s3.ap-southeast-1.amazonaws.com/1387189/labels/1659203322_shipping-label-241420301-89593757153.pdf"
 
 # Base URL for PDF.co Web API requests
@@ -34,8 +34,6 @@ def del_txt():
                   "Akola",
                   "444002",
                   "GSTIN:",
-                  "Phone No.: 8742881915",
-                  "Alternate No.: - 8208656844",
                   "Ako"
                   ]
     for i in del_string:
